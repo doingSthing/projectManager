@@ -1,0 +1,36 @@
+[SysLog] [ERROR] [2019-04-24 15:02:01] [com.yuan.server.YuanServerApplication.main(YuanServerApplication.java:18)] : Error creating bean with name 'serverController': Unsatisfied dependency expressed through field 'serverService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuan.server.service.ServerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'serverController': Unsatisfied dependency expressed through field 'serverService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuan.server.service.ServerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:596)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:374)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1411)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:592)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:849)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:877)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.yuan.server.YuanServerApplication.main(YuanServerApplication.java:14)
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.yuan.server.service.ServerService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1654)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1213)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1167)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	... 19 more
+[SysLog] [DEBUG] [2019-04-24 15:20:07] [com.yuan.server.service.mongo.ServerServiceMongoImpl.addAndInsertToServerGroup(ServerServiceMongoImpl.java:43)] : serverGroup:{"name":"博达大学1服务器集群","_id":"5cc0050b14d74b4c0c813728","serverIds":[]}中插入server:{"password":"webber","ip":"127.0.0.1","name":"博达大学服务器1","operationIds":[],"_id":"5cc00e2714d74b452c93d1ec","account":"admin"}
+[SysLog] [DEBUG] [2019-04-24 15:24:11] [com.yuan.server.service.mongo.ServerServiceMongoImpl.addAndInsertToServerGroup(ServerServiceMongoImpl.java:43)] : serverGroup:{"name":"博达大学1服务器集群","_id":"5cc0050b14d74b4c0c813728","serverIds":[]}中插入server:{"password":"webber","ip":"127.0.0.1","name":"博达大学服务器2","operationIds":[],"_id":"5cc00f1a14d74b458840e837","account":"admin"}
+[SysLog] [DEBUG] [2019-04-24 20:20:06] [com.yuan.server.service.mongo.ServerServiceMongoImpl.insertToServerGroup(ServerServiceMongoImpl.java:54)] : serverGroup:{"name":"博达大学1服务器集群","_id":"5cc0050b14d74b4c0c813728","serverIds":["5cc00f1a14d74b458840e837"]}中插入serverId:5cc0547614d74b4a14ed5e45
+[SysLog] [DEBUG] [2019-04-24 20:20:34] [com.yuan.server.service.mongo.ServerServiceMongoImpl.insertToServerGroup(ServerServiceMongoImpl.java:54)] : serverGroup:{"name":"博达大学1服务器集群","_id":"5cc0050b14d74b4c0c813728","serverIds":["5cc00f1a14d74b458840e837","5cc0547614d74b4a14ed5e45"]}中插入serverId:5cc0549114d74b4a14ed5e46
+[SysLog] [DEBUG] [2019-04-24 20:20:40] [com.yuan.server.service.mongo.ServerServiceMongoImpl.insertToServerGroup(ServerServiceMongoImpl.java:54)] : serverGroup:{"name":"博达大学1服务器集群","_id":"5cc0050b14d74b4c0c813728","serverIds":["5cc00f1a14d74b458840e837","5cc0547614d74b4a14ed5e45","5cc0549114d74b4a14ed5e46"]}中插入serverId:5cc0549814d74b4a14ed5e47
+[SysLog] [DEBUG] [2019-04-24 20:50:58] [com.yuan.server.service.mongo.ServerServiceMongoImpl.insertToServerGroup(ServerServiceMongoImpl.java:54)] : serverGroup:{"name":"博达大学1服务器集群","_id":"5cc05b3314d74b3c88acaba8","serverIds":[]}中插入serverId:5cc05bb214d74b3c88acabac
+[SysLog] [DEBUG] [2019-04-24 20:51:03] [com.yuan.server.service.mongo.ServerServiceMongoImpl.insertToServerGroup(ServerServiceMongoImpl.java:54)] : serverGroup:{"name":"博达大学1服务器集群","_id":"5cc05b3314d74b3c88acaba8","serverIds":["5cc05bb214d74b3c88acabac"]}中插入serverId:5cc05bb714d74b3c88acabad
+[SysLog] [DEBUG] [2019-04-24 20:51:07] [com.yuan.server.service.mongo.ServerServiceMongoImpl.insertToServerGroup(ServerServiceMongoImpl.java:54)] : serverGroup:{"name":"博达大学1服务器集群","_id":"5cc05b3314d74b3c88acaba8","serverIds":["5cc05bb214d74b3c88acabac","5cc05bb714d74b3c88acabad"]}中插入serverId:5cc05bbb14d74b3c88acabae

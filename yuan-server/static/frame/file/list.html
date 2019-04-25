@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>服务器列表</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="/layuiadmin/style/template.css" media="all">
+</head>
+<body>
+<div class="layui-card">
+  <div class="layui-card-header" id="currentPath">当前路径：<a href="javascript:updateData('/')"></a></div>
+  <input type="button" value="刷新" onclick="refresh()" class="layui-btn" />
+  <div class="layui-fluid layadmin-cmdlist-fluid">
+    <div class="layui-row layui-col-space30" id="serverGroupList">
+    </div>
+  </div>
+</div>
+
+<script src="/layuiadmin/layui/layui.js"></script>
+<script src="/frame/js/jquery.min.js"></script>
+<script src="/frame/js/urlParam.js"></script>
+<script>
+    var serverId = UrlParam.paramValues("serverId")[0];
+    var serverPath = "/";
+
+    layui.config({
+        base: '/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'layer'], function () {
+        var layer = layui.layer;
+        refresh();
+    });
+
+    function updateData(_serverPath) {
+        $("#serverGroupList").html("");
+        if(_serverPath)
+            serverPath = _serverPath;
+        if(serverPath == "/")
+        {
+            $("#currentPath").html('当前路径：<a href="javascript:updateData(\'/\')">/</a>');
+        }else
+        {
+            var everyPaths = serverPath.split("/");
+            var everyServerPathUrl = "";
+            var _html = "当前路径：";
+            for(var index in everyPaths)
+            {
+                var everyPath = everyPaths[index];
+                if(everyPath == "")
+                    continue;
+                if(everyServerPathUrl == "")
+                    everyServerPathUrl += everyPath;
+                else
+                    everyServerPathUrl += "/" + everyPath;
+
+
+                if(everyServerPathUrl == everyPath)
+                    _html += '<a href="javascript:updateData(\'' + everyServerPathUrl + '/\')">' + everyPath + '</a>/';
+                else
+                    _html += '<a href="javascript:updateData(\'' + everyServerPathUrl + '\')">' + everyPath + '</a>/';
+            }
+            $("#currentPath").html(_html);
+        }
+        getData("/server/getSonsServerDirectory", "/frame/images/directory.jpg", true);
+        getData("/server/getSonsServerFile", "/frame/images/file.jpg");
+    }
+
+    /**刷新*/ //这里是否刷新成功需要进行数据的版本对比。查看版本值是否一致。
+    function refresh() {
+        var url = "/server/refreshSonsServerDirectory";
+        var params = {
+            "serverId": serverId,
+            "serverPath": serverPath
+        }
+        $.ajax({
+            url: url,
+            data: params,
+            async: false,
+            dataType: 'json',
+            success: function (res) {
+                layer.msg("刷新成功！如果界面数据显示不正确请多次刷新，因为可能存在网络延迟。");
+            },
+            error: function (res) {
+                layer.msg("加载失败！", {icon: 5});
+            }
+        })
+        updateData();
+    }
+
+    /**获取数据*/
+    function getData(url, img, _onclick) {
+        var params = {
+            serverId: serverId,
+            serverPath: serverPath
+        }
+        $.ajax({
+            url: url,
+            data: params,
+            async: false,
+            dataType: 'json',
+            success: function (res) {
+                for(var i = 0; res && i < res.length ; i++)
+                {
+                    render(res[i], img, _onclick?"updateData('"+res[i].path+"')":"");
+                }
+            },
+            error: function (res) {
+                var layer = layui.layer;
+                layer.error("加载失败！")
+            }
+        })
+    }
+    /**渲染*/
+    function render(file, img, _onclick) {
+        var _html = '<div class="layui-col-md2 layui-col-sm4" ' + (_onclick?'onclick="'+ _onclick +'"' : '' ) + '>\n' +
+            '      <div class="cmdlist-container">\n' +
+            '        <a href="javascript:;">\n' +
+            '          <img src="'+img+'">\n' +
+            '        </a>\n' +
+            '        <a href="javascript:;">\n' +
+            '          <div class="cmdlist-text">\n' +
+            '            <p class="info">'+file.name+'</p>\n' +
+            '          </div>\n' +
+            '        </a>\n' +
+            '      </div>\n' +
+            '    </div>';
+        $("#serverGroupList").append(_html);
+    }
+</script>
+</body>
+</html>
